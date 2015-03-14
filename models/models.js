@@ -4,6 +4,8 @@ var PersonSchema = new mongoose.Schema ({
     name: String
 });
 
+var Person = mongoose.model('Person', PersonSchema);
+
 module.exports = {
     Person: Person
 }
