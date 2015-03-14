@@ -15,6 +15,15 @@ function disconnect (cb) {
     });
 }
 
+function seed (cb) {
+    var people = [
+        {name: 'Brian'},
+        {name: 'Dave'},
+        {name: 'Sean'}
+    ];
+    Person.create(people,cb);
+}
+
 module.exports = {
     connect: connect,
     disconnect: disconnect,

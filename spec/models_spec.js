@@ -3,10 +3,16 @@ var Person = models.Person;
 var db = require('../config/db');
 
 describe("Person", function() {
+    var brian, dave, sean;
     beforeEach(function(done){
         db.connect(function(){
             console.log("Connected!");
-            done();
+            db.seed(function(err, _brian, _dave, _sean){
+                brian = _brian;
+                dave = _dave;
+                sean = _sean;
+                done();
+            })
         });
     });
     afterEach(function(done){
@@ -23,6 +29,9 @@ describe("Person", function() {
         expect(Person.name).toBeDefined();
     })
     it("is named Brian", function(){
-        expect(Person.name).toEqual('Brian');
+        expect(brian.name).toEqual('Brian');
+    })
+    it("is named Dave", function(){
+        expect(dave.name).toEqual('Dave');
     })
 });
