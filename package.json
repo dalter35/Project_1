@@ -18,5 +18,8 @@
   "homepage": "https://github.com/bfernandezsp/ce9053-project1",
   "dependencies": {
     "mongoose": "^3.8.25"
+  },
+  "devDependencies": {
+    "jasmine-node": "^1.14.5"
   }
 }
