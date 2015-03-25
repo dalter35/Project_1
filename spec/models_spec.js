@@ -313,7 +313,7 @@ describe("Person and Thing", function() {
                             
                              // console.log(_returnedParis);
                             // console.log(_returnedNewYork);
-                                Place.getAllFavorited(function(err, _allFavorites){
+                                Place.getAllFavoritedPlaces(function(err, _allFavorites){
                                     favPlaces = _allFavorites;
                                     //console.log(favPlaces);
                                     done();    
@@ -333,7 +333,7 @@ describe("Person and Thing", function() {
             Person.addPlace(brian._id, newyork._id, function(err, _msg1, _msg2) {
                 Place.getOneById(newyork._id, function(err, _returnedPlace) {
                     
-                    Place.getAllUnFavorited(function(err, _allUnFavorited){
+                    Place.getAllUnFavoritedPlaces(function(err, _allUnFavorited){
                         
                         unFavPlaces = _allUnFavorited;
                         // console.log(_allUnFavorited);

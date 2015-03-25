@@ -234,14 +234,14 @@ PlaceSchema.statics.getAll = function(cb){
     })
 };
 
-PlaceSchema.statics.getAllFavorited = function(cb){
+PlaceSchema.statics.getAllFavoritedPlaces = function(cb){
     this.find({numberOfTimesFavorited: {$gt: 0}}, function(err, _returnedFavorites){
         cb(err, _returnedFavorites);
         //console.log(_returnedFavorites);
     })
 };
 
-PlaceSchema.statics.getAllUnFavorited = function(cb){
+PlaceSchema.statics.getAllUnFavoritedPlaces = function(cb){
     this.find({numberOfTimesFavorited: {$lt: 1}}, function(err, _returnedUnFavorites){
         cb(err, _returnedUnFavorites);
     })
