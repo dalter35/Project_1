@@ -1,12 +1,9 @@
 var mongoose = require('mongoose');
 
-var PlaceSchema = new mongoose.Schema ({
-    name: String,
-    numberOfTimesFavorited: {
-        type: Number,
-        default: 0
-    }
-})
+var place_model = require('./place');
+var thing_model = require('./thing');
+var Thing = thing_model.Thing;
+var Place = place_model.Place;
 
 var PersonSchema = new mongoose.Schema ({
     name: String,
@@ -187,65 +184,6 @@ PersonSchema.methods.ownsThing = function(thingId){
 
 var Person = mongoose.model('Person', PersonSchema);
 
-
-
-
-var ThingSchema = new mongoose.Schema ({
-    name : String,
-    numberOwned: {
-        type: Number,
-        default: 0
-    },
-    numberInExistence: {
-        type: Number,
-        default: 100
-    },
-    numberInStock: {
-        type: Number,
-        default: 100
-    },
-});
-
-ThingSchema.statics.findOneByName = function(name,cb){
-    this.findOne({name: name}, cb);
-};
-
-var Thing = mongoose.model('Thing', ThingSchema);
-
-
-
-PlaceSchema.statics.getOneByName = function(name,cb){
-    this.findOne({name:name}, cb);
-    
-    // this.findOne({name:name}, function(err, _foundPlace){
-    //     cb(err, _foundPlace)
-    // });
-};
-
-PlaceSchema.statics.getOneById = function(id, cb){
-    this.findOne({_id: id}, function(err, _placeID){
-        cb(err, _placeID)
-    })   
-};
-
-PlaceSchema.statics.getAll = function(cb){
-    this.find({}, function(err, _returnedPlaces){
-        cb(err, _returnedPlaces)
-    })
-};
-
-PlaceSchema.statics.getAllFavorited = function(cb){
-    this.find({numberOfTimesFavorited: {$gt: 0}}, function(err, _returnedFavorites){
-        cb(err, _returnedFavorites);
-        console.log(_returnedFavorites);
-    })
-};
-
-var Place = mongoose.model('Place', PlaceSchema);
-
-
 module.exports = {
-    Person: Person,
-    Thing : Thing,
-    Place : Place
+    Person: Person
 }

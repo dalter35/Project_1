@@ -4,6 +4,15 @@ var Person = models.Person;
 var Thing = models.Thing;
 var Place = models.Place;
 
+// var place_model = require('../models/place');
+// var person_model = require('../models/person');
+// var thing_model = require('../models/thing');
+
+
+// var Person = person_model.Person;
+// var Thing = thing_model.Thing;
+// var Place = place_model.Place;
+
 function connect (cb) {
     mongoose.connect('mongodb://localhost/the_carter');
     mongoose.connection.once('open', function(){

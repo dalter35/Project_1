@@ -310,10 +310,9 @@ describe("Person and Thing", function() {
                 Place.getOneById(newyork._id, function(err, _returnedNewYork) {
                     Person.addPlace(brian._id, paris._id, function(err, _msg3, _msg4) {
                         Place.getOneById(paris._id, function(err, _returnedParis){
-                            
-                             // console.log(_returnedParis);
+                            // console.log(_returnedParis);
                             // console.log(_returnedNewYork);
-                                Place.getAllFavoritedPlaces(function(err, _allFavorites){
+                                Place.getAllFavorited(function(err, _allFavorites){
                                     favPlaces = _allFavorites;
                                     //console.log(favPlaces);
                                     done();    
@@ -327,24 +326,4 @@ describe("Person and Thing", function() {
                 expect(favPlaces.length).toEqual(2);
             })
         })
-    describe('return all Unfavorited Places', function(){
-        var unFavPlaces = [];
-        beforeEach(function(done) {
-            Person.addPlace(brian._id, newyork._id, function(err, _msg1, _msg2) {
-                Place.getOneById(newyork._id, function(err, _returnedPlace) {
-                    
-                    Place.getAllUnFavoritedPlaces(function(err, _allUnFavorited){
-                        
-                        unFavPlaces = _allUnFavorited;
-                        // console.log(_allUnFavorited);
-                        done();
-                    })
-                    
-                })
-            })
-        })
-        it('returns paris and london bc they arent favorited', function(){
-            expect(unFavPlaces.length).toEqual(2);
-        })
-    })
 });
