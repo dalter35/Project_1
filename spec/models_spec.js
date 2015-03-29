@@ -106,6 +106,8 @@ describe("Person and Thing", function() {
             expect(person.name).toEqual('Brian');
         })
     }) //findOneById test
+
+// code above moved to person_spec.js
     
     describe("acquireThing", function(){
         var person;
@@ -190,6 +192,8 @@ describe("Person and Thing", function() {
        
         
     })
+    
+    //PLACE SPEC
     
     describe('find place by name', function(){
         var place;

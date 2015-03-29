@@ -28,6 +28,22 @@ var PersonSchema = new mongoose.Schema ({
     }
 });
 
+var ThingSchema = new mongoose.Schema ({
+    name : String,
+    numberOwned: {
+        type: Number,
+        default: 0
+    },
+    numberInExistence: {
+        type: Number,
+        default: 100
+    },
+    numberInStock: {
+        type: Number,
+        default: 100
+    },
+});
+
 
 PersonSchema.statics.acquireThing = function(personId, thingId, cb){
     Thing.findOne({_id: thingId}, function(err, _acquiredThing){
@@ -190,24 +206,26 @@ var Person = mongoose.model('Person', PersonSchema);
 
 
 
-var ThingSchema = new mongoose.Schema ({
-    name : String,
-    numberOwned: {
-        type: Number,
-        default: 0
-    },
-    numberInExistence: {
-        type: Number,
-        default: 100
-    },
-    numberInStock: {
-        type: Number,
-        default: 100
-    },
-});
+
 
 ThingSchema.statics.findOneByName = function(name,cb){
     this.findOne({name: name}, cb);
+};
+
+ThingSchema.statics.findOneById = function(id,cb){
+    this.findOne({_id: id}, cb);
+};
+
+ThingSchema.statics.findAllThings = function(cb){
+  this.find({}, cb);  
+};
+
+ThingSchema.statics.findAllOwned = function(cb){
+    this.find({numberOwned: {$gt:0}}, cb);
+};
+
+ThingSchema.statics.findAllUnOwned = function(cb){
+    this.find({numberOwned: {$lt:1}}, cb);
 };
 
 var Thing = mongoose.model('Thing', ThingSchema);
