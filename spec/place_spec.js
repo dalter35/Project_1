@@ -73,4 +73,44 @@ describe("Person + Place + Thing", function() {
         })
     })
     
+    describe('return all favorited places', function() {
+        var returnedNY, returnedParis, favPlaces = [];
+        beforeEach(function(done) {
+           Person.addPlace(dave._id, newyork._id, function(err, _msg1, _msg2){
+                Place.getOneById(newyork._id, function(err, _returnedNewYork) {
+                    Person.addPlace(brian._id, paris._id, function(err, _msg3, _msg4) {
+                        Place.getOneById(paris._id, function(err, _returnedParis){
+                            Place.getAllFavorited(function(err, _allFavorites){
+                                favPlaces = _allFavorites;
+                                done();    
+                                })
+                              })
+                            })
+                        })
+                    });
+                })
+            it('finds all favorites', function(){
+                expect(favPlaces.length).toEqual(2);
+                console.log('found all favorited places');
+            })
+        })
+        
+    describe('return all place that are not favorited', function(){
+        var allUnOwnedPlaces;
+        beforeEach(function(done){
+            Person.addPlace(sean._id, paris._id, function(err, _msg1, _msg2) {
+                Place.getOneById(paris._id, function(err, _returnedParis) {
+                    Place.getAllUnFavorited(function(err, _returnedPlaces){
+                    allUnOwnedPlaces = _returnedPlaces;
+                    done();
+                    })
+                })
+            })
+        })
+        it('finds all places that are not favorited', function(){
+            expect(allUnOwnedPlaces.length).toEqual(2);
+            console.log('found all places that suck (unfavorited)');
+        })
+    })
+    
 });

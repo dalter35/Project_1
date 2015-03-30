@@ -176,11 +176,8 @@ describe("Person and Thing", function() {
         var person;
         beforeEach(function(done) {
              Person.acquireThing(dave._id, bourbon._id, function(){
-                //console.log('about to grab updated brian')
                 Person.findOneById(dave._id, function(err, _updatedDave) {
-                    //console.log(_updatedBrian);
                     person = _updatedDave;
-                    console.log(bourbon._id);
                     done();
                 })
             });

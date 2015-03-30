@@ -73,6 +73,10 @@ PersonSchema.statics.acquireThing = function(personId, thingId, cb){
     });
 };
 
+PersonSchema.statics.getAllWhoOwnThing = function(thingId, cb){
+  Person.find({things :{$in: [thingId]}}, cb);  
+};
+
 PersonSchema.statics.returnThing = function(personId, thingId, cb){
     Thing.findOne({_id: thingId}, function(err, _returnedThing){
        var qry = {
@@ -201,6 +205,10 @@ PersonSchema.methods.ownsThing = function(thingId){
     return this.things.indexOf(thingId) > -1;
 };
 
+PersonSchema.statics.findAllWhoFavoritedPlace = function(placeId, cb){
+  this.find({favoritePlaces:{$in: [placeId]}}, cb)  
+};
+
 var Person = mongoose.model('Person', PersonSchema);
 
 
@@ -255,7 +263,12 @@ PlaceSchema.statics.getAll = function(cb){
 PlaceSchema.statics.getAllFavorited = function(cb){
     this.find({numberOfTimesFavorited: {$gt: 0}}, function(err, _returnedFavorites){
         cb(err, _returnedFavorites);
-        console.log(_returnedFavorites);
+    })
+};
+
+PlaceSchema.statics.getAllUnFavorited = function(cb){
+    this.find({numberOfTimesFavorited: {$lt: 1}}, function(err, _returnedUnFavorites){
+        cb(err, _returnedUnFavorites);
     })
 };
 
