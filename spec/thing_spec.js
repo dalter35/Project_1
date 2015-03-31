@@ -1,7 +1,15 @@
-var models = require('../models/models');
-var Person = models.Person;
-var Thing = models.Thing;
-var Place = models.Place;
+// var models = require('../models/models');
+// var Person = models.Person;
+// var Thing = models.Thing;
+// var Place = models.Place;
+
+var place_model = require('../models/place_model');
+var person_model = require('../models/person_model');
+var thing_model = require('../models/thing_model');
+var Person = person_model.Person;
+var Thing = thing_model.Thing;
+var Place = place_model.Place;
+
 var db = require('../config/db');
 
 describe("Person + Place + Thing", function() {

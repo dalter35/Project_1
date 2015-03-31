@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
-
-var place_model = require('./place');
-var thing_model = require('./thing');
+var thing_model = require('../models/thing_model');
 var Thing = thing_model.Thing;
+var place_model = require('../models/place_model');
 var Place = place_model.Place;
 
 var PersonSchema = new mongoose.Schema ({
@@ -24,7 +23,6 @@ var PersonSchema = new mongoose.Schema ({
         default: 0
     }
 });
-
 
 PersonSchema.statics.acquireThing = function(personId, thingId, cb){
     Thing.findOne({_id: thingId}, function(err, _acquiredThing){
@@ -52,6 +50,10 @@ PersonSchema.statics.acquireThing = function(personId, thingId, cb){
       });
     
     });
+};
+
+PersonSchema.statics.getAllWhoOwnThing = function(thingId, cb){
+  Person.find({things :{$in: [thingId]}}, cb);  
 };
 
 PersonSchema.statics.returnThing = function(personId, thingId, cb){
@@ -178,8 +180,13 @@ PersonSchema.methods.ownsThing = function(thingId){
     // else {
     //     return true
     // }
+    
     // SAME THING above
     return this.things.indexOf(thingId) > -1;
+};
+
+PersonSchema.statics.findAllWhoFavoritedPlace = function(placeId, cb){
+  this.find({favoritePlaces:{$in: [placeId]}}, cb)  
 };
 
 var Person = mongoose.model('Person', PersonSchema);

@@ -201,6 +201,7 @@ PersonSchema.methods.ownsThing = function(thingId){
     // else {
     //     return true
     // }
+    
     // SAME THING above
     return this.things.indexOf(thingId) > -1;
 };
@@ -210,10 +211,6 @@ PersonSchema.statics.findAllWhoFavoritedPlace = function(placeId, cb){
 };
 
 var Person = mongoose.model('Person', PersonSchema);
-
-
-
-
 
 
 ThingSchema.statics.findOneByName = function(name,cb){

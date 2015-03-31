@@ -1,11 +1,5 @@
 var mongoose = require('mongoose');
 
-var place_model = require('./place');
-var person_model = require('./person');
-
-var Person = person_model.Person;
-var Place = place_model.Place;
-
 var ThingSchema = new mongoose.Schema ({
     name : String,
     numberOwned: {
@@ -26,8 +20,24 @@ ThingSchema.statics.findOneByName = function(name,cb){
     this.findOne({name: name}, cb);
 };
 
+ThingSchema.statics.findOneById = function(id,cb){
+    this.findOne({_id: id}, cb);
+};
+
+ThingSchema.statics.findAllThings = function(cb){
+  this.find({}, cb);  
+};
+
+ThingSchema.statics.findAllOwned = function(cb){
+    this.find({numberOwned: {$gt:0}}, cb);
+};
+
+ThingSchema.statics.findAllUnOwned = function(cb){
+    this.find({numberOwned: {$lt:1}}, cb);
+};
+
 var Thing = mongoose.model('Thing', ThingSchema);
 
 module.exports = {
-    Thing: Thing
+    Thing : Thing
 }

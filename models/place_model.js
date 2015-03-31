@@ -1,11 +1,5 @@
 var mongoose = require('mongoose');
 
-var person_model = require('./person');
-var thing_model = require('./thing');
-
-var Person = person_model.Person;
-var Thing = thing_model.Thing;
-
 var PlaceSchema = new mongoose.Schema ({
     name: String,
     numberOfTimesFavorited: {
@@ -37,12 +31,18 @@ PlaceSchema.statics.getAll = function(cb){
 PlaceSchema.statics.getAllFavorited = function(cb){
     this.find({numberOfTimesFavorited: {$gt: 0}}, function(err, _returnedFavorites){
         cb(err, _returnedFavorites);
-        console.log(_returnedFavorites);
+    })
+};
+
+PlaceSchema.statics.getAllUnFavorited = function(cb){
+    this.find({numberOfTimesFavorited: {$lt: 1}}, function(err, _returnedUnFavorites){
+        cb(err, _returnedUnFavorites);
     })
 };
 
 var Place = mongoose.model('Place', PlaceSchema);
 
+
 module.exports = {
-    Place: Place
+    Place : Place
 }
