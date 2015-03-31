@@ -9,7 +9,7 @@ var person_model = require('../models/person_model');
 var thing_model = require('../models/thing_model');
 var Person = person_model.Person;
 var Thing = thing_model.Thing;
-
+var Place = place_model.Place
 
 function connect (cb) {
     mongoose.connect('mongodb://localhost/the_carter');
